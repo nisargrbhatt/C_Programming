@@ -6,12 +6,12 @@ struct Stack
 {
 	int top;
 	unsigned capacity;
-	int* array;
+	int *array;
 };
 
-struct Stack* createStack( unsigned capacity )
+struct Stack *createStack(unsigned capacity)
 {
-	struct Stack* stack = (struct Stack*) malloc(sizeof(struct Stack));
+	struct Stack *stack = (struct Stack *)malloc(sizeof(struct Stack));
 
 	if (!stack)
 		return NULL;
@@ -19,27 +19,27 @@ struct Stack* createStack( unsigned capacity )
 	stack->top = -1;
 	stack->capacity = capacity;
 
-	stack->array = (int*) malloc(stack->capacity * sizeof(int));
+	stack->array = (int *)malloc(stack->capacity * sizeof(int));
 
 	if (!stack->array)
 		return NULL;
 	return stack;
 }
-int isEmpty(struct Stack* stack)
+int isEmpty(struct Stack *stack)
 {
-	return stack->top == -1 ;
+	return stack->top == -1;
 }
-char peek(struct Stack* stack)
+char peek(struct Stack *stack)
 {
 	return stack->array[stack->top];
 }
-char pop(struct Stack* stack)
+char pop(struct Stack *stack)
 {
 	if (!isEmpty(stack))
-		return stack->array[stack->top--] ;
+		return stack->array[stack->top--];
 	return '$';
 }
-void push(struct Stack* stack, char op)
+void push(struct Stack *stack, char op)
 {
 	stack->array[++stack->top] = op;
 }
@@ -67,21 +67,19 @@ int Prec(char ch)
 	return -1;
 }
 
-int infixToPostfix(char* exp)
+int infixToPostfix(char *exp)
 {
 	int i, k;
 
-
-	struct Stack* stack = createStack(strlen(exp));
-	if(!stack)
-		return -1 ;
+	struct Stack *stack = createStack(strlen(exp));
+	if (!stack)
+		return -1;
 
 	for (i = 0, k = -1; exp[i]; ++i)
 	{
 
 		if (isOperand(exp[i]))
 			exp[++k] = exp[i];
-
 
 		else if (exp[i] == '(')
 			push(stack, exp[i]);
@@ -101,15 +99,14 @@ int infixToPostfix(char* exp)
 				exp[++k] = pop(stack);
 			push(stack, exp[i]);
 		}
-
 	}
 
-
 	while (!isEmpty(stack))
-		exp[++k] = pop(stack );
+		exp[++k] = pop(stack);
 
 	exp[++k] = '\0';
-	printf( "%s", exp );
+	printf("%s", exp);
+	return 0;
 }
 
 int main()
