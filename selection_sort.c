@@ -16,13 +16,13 @@ int main(){
           if (arr[j] < arr[min_idx]){
 		  
             min_idx = j; 
-}
+			}
 
-        
+		}
         	temp = arr[min_idx];
               arr[min_idx]=arr[i];
               arr[i]=temp;
-}    } 
+    } 
 	
 	printf("Sorted array:");
   	for (i=0;i<n;i++){
